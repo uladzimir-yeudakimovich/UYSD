@@ -1,0 +1,37 @@
+<mat-card class="card">
+  <mat-card-title class="card-title">New customer</mat-card-title>
+  <mat-card-content>
+    <form>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Email" [formControl]="emailFormControl" [errorStateMatcher]="matcher">
+        <mat-hint align="end">Hint: email&#64;domain.com</mat-hint>
+        @if(emailFormControl.hasError('email') && !emailFormControl.hasError('required')){
+          <mat-error align="end">
+            Please enter a valid email address
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput placeholder="First name">
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Last name">
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <textarea matInput placeholder="Address"></textarea>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <span matPrefix>+1</span>
+        <input matInput placeholder="Phone">
+        <mat-icon matSuffix>phone</mat-icon>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions class="btn-group">
+    <button mat-button color="primary">Submit</button>
+  </mat-card-actions>
+</mat-card>

@@ -1,17 +1,17 @@
-.mat-card {
+.card {
   max-width: 300px;
   margin: auto;
 }
 
-.mat-card-avatar {
+.card-avatar {
   background-image: url('/assets/img/uladzimir.jpg');
   background-size: cover;
 }
 
-.mat-card-actions {
+.card-actions {
   display: flex;
 }
 
-.mat-card-actions .flex-spacer {
+.flex-spacer {
   width: 100%;
 }
