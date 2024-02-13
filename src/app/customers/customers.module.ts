@@ -15,6 +15,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatIconModule,
     MatInputModule,
     MatRadioModule,
+    MatSnackBarModule,
   ]
 })
 export class CustomersModule { }
