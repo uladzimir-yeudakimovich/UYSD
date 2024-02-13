@@ -39,7 +39,7 @@
     <form [formGroup]="secondFormGroup">
       <ng-template matStepLabel>Enter recipient info</ng-template>
       <mat-form-field class="form-field">
-        <input matInput placeholder="Message" formControlName="messageCtrl" required>
+        <textarea matInput placeholder="Message" formControlName="messageCtrl" required></textarea>
       </mat-form-field>
       <div class="btn-group">
         <button mat-icon-button matStepperPrevious>
