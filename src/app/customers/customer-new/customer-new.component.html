@@ -31,7 +31,8 @@
       </mat-form-field>
     </form>
   </mat-card-content>
-  <mat-card-actions class="btn-group">
-    <button mat-button color="primary">Submit</button>
+  <mat-card-actions class="card-actions">
+    <button mat-raised-button color="primary" (click)="openUndoSnackBar()">SAVE 1</button>
+    <button mat-raised-button color="primary" (click)="openRepDialog()">SAVE 2</button>
   </mat-card-actions>
 </mat-card>
