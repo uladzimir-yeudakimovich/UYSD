@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,8 +10,8 @@ import { RepDialogComponent } from '../rep-dialog/rep-dialog.component';
   templateUrl: './customer-new.component.html',
   styleUrl: './customer-new.component.scss'
 })
-export class CustomerNewComponent {
-  emailFormControl: FormControl;
+export class CustomerNewComponent implements OnInit {
+  emailFormControl!: FormControl;
 
   matcher: ErrorStateMatcher = {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -20,7 +20,9 @@ export class CustomerNewComponent {
     }
   };
 
-  constructor(public dialog: MatDialog, public snackBar: MatSnackBar) {
+  constructor(public dialog: MatDialog, public snackBar: MatSnackBar) {}
+
+  ngOnInit(): void {
     this.emailFormControl = new FormControl('', [
       Validators.required,
       Validators.email,

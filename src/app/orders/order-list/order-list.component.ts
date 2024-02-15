@@ -45,8 +45,6 @@ export class OrderListComponent implements OnInit {
 
   pageEvent: PageEvent = new PageEvent;
 
-  constructor() {}
-
   loadData(pageIndex: number, pageSize: number): void {
     this.dataSource = new MatTableDataSource(ELEMENT_DATA.slice(pageIndex, pageIndex + pageSize));
   }
