@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Department } from '../../shared/models/message.model';
 
@@ -7,9 +7,9 @@ import { Department } from '../../shared/models/message.model';
   templateUrl: './message-new.component.html',
   styleUrl: './message-new.component.scss'
 })
-export class MessageNewComponent {
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
+export class MessageNewComponent implements OnInit {
+  firstFormGroup!: FormGroup;
+  secondFormGroup!: FormGroup;
   priorities: string[] = ['High', 'Medium', 'Low'];
   departments: Department[] = [
     {
@@ -26,7 +26,9 @@ export class MessageNewComponent {
     }
   ];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder) {}
+
+  ngOnInit(): void {
     this.firstFormGroup = this.formBuilder.group({
       emailCtrl: ['', Validators.required],
       priorityCtrl: ['', Validators.required],
