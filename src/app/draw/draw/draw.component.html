@@ -1,4 +1,13 @@
 <div class="container">
-  <canvas #myCanvas width="600" height="300" style="border: 1px solid;"></canvas>
-  <button (click)="onClear()">Clear</button>
+  <div class="color-buttons">
+    <button mat-icon-button *ngFor="let color of presetColors" (click)="onColorChange(color)">
+      <mat-icon [style.color]="color">circle</mat-icon>
+    </button>
+  </div>
+
+  <canvas #myCanvas width="800px" height="300" style="border: 1px solid;"></canvas>
+
+  <div>
+    <button mat-button color="primary" (click)="onClear()">Clear</button>
+  </div>
 </div>

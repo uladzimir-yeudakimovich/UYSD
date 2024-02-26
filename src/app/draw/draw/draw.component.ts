@@ -8,6 +8,7 @@ import { fromEvent, map, switchMap, takeUntil } from 'rxjs';
 })
 export class DrawComponent implements OnInit {
   canvas$: any;
+  presetColors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffa500', '#a52a2a', '#008000', '#800080'];
 
   ngOnInit(): void {
     this.canvas$ = document.querySelector('canvas') as HTMLCanvasElement;
@@ -23,7 +24,7 @@ export class DrawComponent implements OnInit {
             map((e: any) => ({
               x: e.offsetX,
               y: e.offsetY,
-              ctx: e.target.getContext('2d')
+              ctx: e.target.getContext('2d'),
             })),
             takeUntil(mouseUp$)
           );
@@ -32,6 +33,10 @@ export class DrawComponent implements OnInit {
       .subscribe(pos => {
         pos.ctx.fillRect(pos.x, pos.y, 2, 2);
       });
+  }
+
+  onColorChange(color: string): void {
+    this.canvas$.getContext('2d').fillStyle = color;
   }
 
   onClear() {
