@@ -1,8 +1,10 @@
 <div class="container">
   <div class="color-buttons">
-    <button mat-icon-button *ngFor="let color of presetColors" (click)="onColorChange(color)">
-      <mat-icon [style.color]="color">circle</mat-icon>
-    </button>
+    @for (color of presetColors; track color) {
+      <button mat-icon-button (click)="onColorChange(color)">
+        <mat-icon [style.color]="color">circle</mat-icon>
+      </button>
+    }
   </div>
 
   <canvas #myCanvas width="800px" height="300" style="border: 1px solid;"></canvas>
