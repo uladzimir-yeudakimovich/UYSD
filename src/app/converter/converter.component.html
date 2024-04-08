@@ -1,0 +1,21 @@
+<div>
+  <h2>Unit Converter</h2>
+
+  <label for="inputValue">Value:</label>
+    <input type="number" id="inputValue" [(ngModel)]="inputValue" (input)="convertUnits()" />
+
+    <select id="inputUnit" [(ngModel)]="inputUnit" (change)="convertUnits()">
+    <option *ngFor="let item of selectValues" [value]="item.label">
+      {{ item.label }}
+    </option>
+  </select>
+
+  <label for="outputValue">Result:</label>
+  <input type="number" id="outputValue" [(ngModel)]="outputValue" (input)="convertOutput()" />
+
+  <select id="outputUnit" [(ngModel)]="outputUnit" (change)="convertOutput()">
+    <option *ngFor="let item of selectValues" [value]="item.label">
+      {{ item.label }}
+    </option>
+  </select>
+</div>
