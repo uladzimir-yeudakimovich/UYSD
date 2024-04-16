@@ -1,0 +1,24 @@
+<table *ngIf="displayedColumns.length > 0">
+  <tr>
+    <th *ngFor="let col of displayedColumns">
+      <ng-container
+        *ngTemplateOutlet="getHeaderTemplate(col) || defaultHeader"
+      ></ng-container>
+
+      <ng-template #defaultHeader>
+        {{ col }}
+      </ng-template>
+    </th>
+  </tr>
+  <tr *ngFor="let row of dataSource">
+    <td *ngFor="let col of displayedColumns">
+      <ng-container
+        *ngTemplateOutlet="getCellTemplate(col) || defaultCell; context: {$implicit: row}"
+      ></ng-container>
+
+      <ng-template #defaultCell>
+        {{ row[col] }}
+      </ng-template>
+    </td>
+  </tr>
+</table>

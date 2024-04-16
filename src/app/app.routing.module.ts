@@ -23,6 +23,10 @@ export const routes: Routes = [
     loadChildren: () => import('./messages/messages.module').then(m => m.MessagesModule)
   },
   {
+    path: 'tree-table',
+    loadChildren: () => import('./tree-table/tree-table.module').then(m => m.TreeTableModule)
+  },
+  {
     path: '',
     redirectTo: '',
     pathMatch: 'full'

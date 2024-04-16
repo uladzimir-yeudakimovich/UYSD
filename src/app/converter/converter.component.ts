@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { bufferWhen, filter, fromEvent, interval, merge } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, bufferWhen, filter, fromEvent, interval, merge, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-converter',
   templateUrl: './converter.component.html',
   styleUrl: './converter.component.scss'
 })
-export class ConverterComponent implements OnInit {
+export class ConverterComponent implements OnInit, OnDestroy {
   inputValue: number = 0;
   inputUnit: string = 'kilometers';
   outputValue: number = 0;
   outputUnit: string = 'meters';
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   selectValues = [
     {
@@ -105,10 +106,15 @@ export class ConverterComponent implements OnInit {
     merge(...this.ACTIVE_EVENTS
       .map(event => fromEvent(document, event)))
       .pipe(
+        takeUntil(this.destroy$),
         bufferWhen(() => interval(10000)),      // every 10 sec emit
         filter(events => events.length === 0),
       )
       .subscribe(() => alert('You have been inactive for ten seconds!'));
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 }
