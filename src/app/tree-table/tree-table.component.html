@@ -1,4 +1,4 @@
-<div *ngIf="dataSource$ | async as dataSource; else spinner">
+@if (dataSource$ | async; as dataSource) {
   <app-table [dataSource]="dataSource" [displayedColumns]="displayedColumns">
     <ng-template appTableHeader="id">ID</ng-template>
     <ng-template appTableHeader="dob">Date of Birthday</ng-template>
@@ -11,5 +11,6 @@
     <ng-template appTableCell="fullName" let-row>{{ row['name'] }} {{ row['surname'] }}</ng-template>
     <ng-template appTableCell="age" let-row>{{ fullAge(row['dob']) }}</ng-template>
   </app-table>
-</div>
-<ng-template  #spinner>Loading...</ng-template >
+} @else {
+  Loading...
+}
