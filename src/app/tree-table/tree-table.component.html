@@ -1,4 +1,9 @@
+<p>{{ dateNow | date: 'MMMM d, y, h:mm:ss a z' : '+2' : 'pl' }}</p>
+<p>{{ dateNow | date }}</p>
+<p>{{ dateNow | date: 'MMMM d, y, h:mm:ss a z' : '+2' : 'en' }}</p>
+
 @if (dataSource$ | async; as dataSource) {
+  <button type="button" (click)="updateUser()">Update User</button>
   <app-table [dataSource]="dataSource" [displayedColumns]="displayedColumns">
     <ng-template appTableHeader="id">ID</ng-template>
     <ng-template appTableHeader="dob">Date of Birthday</ng-template>
@@ -11,6 +16,7 @@
     <ng-template appTableCell="fullName" let-row>{{ row['name'] }} {{ row['surname'] }}</ng-template>
     <ng-template appTableCell="age" let-row>{{ fullAge(row['dob']) }}</ng-template>
   </app-table>
+  <pre>{{ dataSource | json }}</pre>
 } @else {
-  Loading...
+  <p>Loading...</p>
 }

@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { NgModule } from "@angular/core";
+import { LOCALE_ID, NgModule } from "@angular/core";
 
 // Material section
 import { MatButtonModule } from "@angular/material/button";
@@ -11,8 +11,13 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 
 // Routing
 import { AppRoutingModule } from "./app.routing.module";
-
 import { AppComponent } from "./app.component";
+
+// Localization
+import { registerLocaleData } from "@angular/common";
+import localePl from "@angular/common/locales/pl";
+
+registerLocaleData(localePl);
 
 @NgModule({
   declarations: [
@@ -30,7 +35,12 @@ import { AppComponent } from "./app.component";
     MatSidenavModule,
     MatToolbarModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'pl',
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
