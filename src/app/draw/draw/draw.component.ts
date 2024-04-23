@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Observable, fromEvent, map, switchMap, takeUntil } from 'rxjs';
 import { MousePosition } from '../../shared/models/draw.model';
 
@@ -7,33 +7,40 @@ import { MousePosition } from '../../shared/models/draw.model';
   templateUrl: './draw.component.html',
   styleUrl: './draw.component.scss'
 })
-export class DrawComponent implements OnInit {
+export class DrawComponent implements AfterViewInit {
+  @ViewChild('myCanvas') canvasRef: ElementRef<HTMLCanvasElement> | null = null;
   readonly presetColors: string[] = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffa500', '#a52a2a', '#008000', '#800080'];
-  private canvas: HTMLCanvasElement | null = null;
-  private context: CanvasRenderingContext2D | null = null;
 
-  ngOnInit(): void {
-    this.canvas = document.getElementById('myCanvas') as HTMLCanvasElement;
-    this.context = this.canvas?.getContext('2d');
-
-    if (this.canvas && this.context) {
-      this.initDrawnCanvas(this.canvas, this.context);
-    };
+  ngAfterViewInit(): void {
+    if (this.canvasRef) {
+      this.initDrawnCanvas();
+    }
   }
 
   onColorChange(color: string): void {
-    if (this.context) {
-      this.context.fillStyle = color;
+    const ctx = this.getCanvasContext();
+    if (ctx) {
+      ctx.fillStyle = color;
     }
   }
 
   onClear(): void {
-    if (this.context) {
-      this.context.clearRect(0, 0, this.canvas?.width as number, this.canvas?.height as number);
+    const ctx = this.getCanvasContext();
+    if (ctx) {
+      const canvas = this.canvasRef!.nativeElement;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
   }
 
-  private initDrawnCanvas(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D): void {
+  private getCanvasContext(): CanvasRenderingContext2D | null {
+    if (!this.canvasRef) return null;
+    const canvas = this.canvasRef.nativeElement;
+    return canvas.getContext('2d');
+  }
+
+  private initDrawnCanvas(): void {
+    if (!this.canvasRef) return;
+    const canvas = this.canvasRef.nativeElement;
     const mouseDown$: Observable<MouseEvent> = fromEvent<MouseEvent>(canvas, 'mousedown');
     const mouseUp$: Observable<MouseEvent> = fromEvent<MouseEvent>(document, 'mouseup');
     const mouseMove$: Observable<MouseEvent> = fromEvent<MouseEvent>(canvas, 'mousemove');
@@ -42,16 +49,22 @@ export class DrawComponent implements OnInit {
       .pipe(
         switchMap(() => {
           return mouseMove$.pipe(
-            map((e: MouseEvent) => ({
-              x: e.offsetX,
-              y: e.offsetY,
-              ctx: context,
-            })),
+            map((e: MouseEvent) => this.calculateMousePosition(e, canvas)),
             takeUntil(mouseUp$)
           );
         })
       )
-      .subscribe((pos: MousePosition) => this.draw(pos));
+      .subscribe((pos: MousePosition) => {
+        this.draw(pos);
+      });
+  }
+
+  private calculateMousePosition(event: MouseEvent, canvas: HTMLCanvasElement): MousePosition {
+    return {
+      x: event.offsetX,
+      y: event.offsetY,
+      ctx: canvas.getContext('2d') as CanvasRenderingContext2D,
+    };
   }
 
   private draw(pos: MousePosition): void {
