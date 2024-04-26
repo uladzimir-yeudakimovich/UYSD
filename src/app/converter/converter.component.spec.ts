@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { ConverterModule } from './converter.module';
 import { ConverterComponent } from './converter.component';
 
 describe('ConverterComponent', () => {
@@ -8,10 +9,11 @@ describe('ConverterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ConverterComponent]
+      imports: [ConverterModule],
+      declarations: [ConverterComponent],
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(ConverterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

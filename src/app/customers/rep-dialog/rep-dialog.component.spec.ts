@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { CustomersModule } from '../customers.module';
 import { RepDialogComponent } from './rep-dialog.component';
 
 describe('RepDialogComponent', () => {
@@ -8,7 +9,8 @@ describe('RepDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RepDialogComponent]
+      imports: [CustomersModule],
+      declarations: [RepDialogComponent],
     })
     .compileComponents();
 

@@ -25,10 +25,10 @@ registerLocaleData(localePl);
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
 
     //Material
-    BrowserAnimationsModule,
     MatButtonModule,
     MatIconModule,
     MatMenuModule,

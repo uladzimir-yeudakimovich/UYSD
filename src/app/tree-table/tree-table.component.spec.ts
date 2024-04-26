@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { TreeTableModule } from './tree-table.module';
 import { TreeTableComponent } from './tree-table.component';
 
 describe('TreeTableComponent', () => {
@@ -8,10 +9,11 @@ describe('TreeTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TreeTableComponent]
+      imports: [TreeTableModule],
+      declarations: [TreeTableComponent],
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(TreeTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
