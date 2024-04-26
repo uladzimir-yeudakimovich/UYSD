@@ -34,4 +34,20 @@ describe('DrawComponent', () => {
     fixture.detectChanges();
     expect(component.presetColors.length).toBeGreaterThan(0);
   });
+
+  it('should set color on color change', () => {
+    const color = '#ff0000';
+    const ctxSpy = jasmine.createSpyObj('CanvasRenderingContext2D', ['fillStyle']);
+    spyOn(component.canvasRef!.nativeElement, 'getContext').and.returnValue(ctxSpy);
+    component.onColorChange(color);
+    expect(ctxSpy.fillStyle).toEqual(color);
+  });
+
+  it('should clear canvas on clear', () => {
+    const ctxSpy = jasmine.createSpyObj('CanvasRenderingContext2D', ['clearRect']);
+    spyOn(component.canvasRef!.nativeElement, 'getContext').and.returnValue(ctxSpy);
+    component.onClear();
+    const canvas = component.canvasRef!.nativeElement;
+    expect(ctxSpy.clearRect).toHaveBeenCalledWith(0, 0, canvas.width, canvas.height);
+  });
 });
