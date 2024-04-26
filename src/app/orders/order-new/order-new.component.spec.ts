@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { AppModule } from '../../app.module';
+import { OrdersModule } from '../orders.module';
 import { OrderNewComponent } from './order-new.component';
 
 describe('OrderNewComponent', () => {
@@ -8,10 +10,11 @@ describe('OrderNewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [OrderNewComponent]
+      imports: [AppModule, OrdersModule],
+      declarations: [OrderNewComponent],
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(OrderNewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
